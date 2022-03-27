@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { addToDb } from '../../utilities/fakedb';
 import Meal from '../Meal/Meal';
 import OrderList from '../OrderList/OrderList';
 import './Restaurant.css';
@@ -26,7 +27,12 @@ const Restaurant = () => {
         Read carefully, give it a try. [ Ki ache jibone]
         if  you need help, let us know in the support session
     */
-    
+    const addToHandler = (meal) => {
+        const newOrders = [...orders, meal]
+        setOrders(newOrders)
+        addToDb(meal.idMeal)
+    }
+
 
     return (
         <div className="restaurant-menu">
@@ -35,6 +41,7 @@ const Restaurant = () => {
                     meals.map(meal => <Meal
                         key={meal.idMeal}
                         meal={meal}
+                        addToHandler={addToHandler}
                     ></Meal>)
                 }
             </div>
